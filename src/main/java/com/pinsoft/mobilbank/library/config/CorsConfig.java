@@ -18,10 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 //@EnableWebMvc
-public class CorsConfig {
+public class CorsConfig{
 
   /*  @Override
     public void addCorsMappings(CorsRegistry registry){
@@ -95,6 +96,17 @@ public class CorsConfig {
 
     public void destroy() {
         //not needed
+    }*/
+
+  /*  @Bean
+    CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080","http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(List.of("Authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",configuration);
+        return source;
     }*/
 
 
