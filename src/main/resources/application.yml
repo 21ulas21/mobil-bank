@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: TIME-OFF-TRACKER
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:postgresql://timeoff-management.cl7uvv8utzfs.eu-north-1.rds.amazonaws.com:5432/TimeOffManagement # url: jdbc:postgresql://postgres:5432/time-off-tracker
+    username: postgres
+    password: ticketbooking123 # postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+default:
+  user:
+    email: admin
+    password: admin
+server:
+  port: 8080
