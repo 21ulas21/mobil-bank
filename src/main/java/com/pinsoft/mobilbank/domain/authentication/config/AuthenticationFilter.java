@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +17,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+
 @Component
 @RequiredArgsConstructor
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final CustomUserDetailsService service;
+    Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -29,6 +33,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String autheader = request.getHeader("Authorization");
         final String token;
         final String username;
+
+        logger.info(request.getRequestURL().toString());
+        logger.info(request.getRequestURI());
 
         if (autheader == null || !autheader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
