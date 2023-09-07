@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         return toDto(user);
     }
 
+
     @Override
     public UserDto updateUser(String id, UserDto userDto) {
         return repository.findById(id)
@@ -35,9 +36,6 @@ public class UserServiceImpl implements UserService {
                 .map(this::toDto)
                 .orElseThrow(EntityNotFoundException::new);
     }
-
-
-
 
     public User toEntity(User user, UserDto dto){
         user.setId(dto.getId());

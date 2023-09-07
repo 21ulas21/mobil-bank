@@ -1,6 +1,7 @@
 package com.pinsoft.mobilbank.domain.authentication.config;
 
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
+import com.pinsoft.mobilbank.domain.user.impl.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final UserDto user;
+    private final User user;
 
-    public CustomUserDetails(UserDto user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 

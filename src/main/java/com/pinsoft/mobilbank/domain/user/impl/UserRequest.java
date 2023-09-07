@@ -12,7 +12,7 @@ public class UserRequest {
     private String lastName;
     private String email;
     private String password;
-    private boolean status;
+
 
     public UserDto toDto(){
         return UserDto.builder()
@@ -20,7 +20,6 @@ public class UserRequest {
                 .lastName(lastName)
                 .email(email)
                 .password(password)
-                .status(status)
                 .build();
     }
 
