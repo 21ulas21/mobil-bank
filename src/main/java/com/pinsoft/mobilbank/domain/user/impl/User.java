@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Table(name = User.TABLE)
 public class User {
-    public static final String TABLE="t_user";
+    public static final String TABLE="usr";
     private static final String COL_FIRSTS_NAME ="firsts-name";
     private static final String COL_LAST_NAME="last-name";
     private static final String COL_EMAIL="email";
@@ -35,7 +35,7 @@ public class User {
     @Column(name = COL_PASSWORD,nullable = false)
     private String password;
     @Column(name = COL_STATUS)
-    private boolean status = true;
+    private boolean status;
 
 
 

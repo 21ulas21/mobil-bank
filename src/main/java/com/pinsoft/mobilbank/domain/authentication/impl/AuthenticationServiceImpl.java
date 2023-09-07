@@ -40,6 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public UserDto register(UserRequest request) {
         User user =  userService.toEntity(new User(), request.toDto());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
        return userService.createUser(user);
     }
 }

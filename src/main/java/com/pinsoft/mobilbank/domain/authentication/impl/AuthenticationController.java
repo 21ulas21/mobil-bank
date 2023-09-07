@@ -22,9 +22,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRequest request){
+    public ResponseEntity<Void> register(@RequestBody UserRequest request){
         service.register(request);
-        return ResponseEntity.ok("Account Created");
+        return ResponseEntity.ok().build();
     }
 
 }
