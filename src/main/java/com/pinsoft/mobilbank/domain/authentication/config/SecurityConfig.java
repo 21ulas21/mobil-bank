@@ -37,7 +37,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable().cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/swagger-ui/**",
+                        "/webjars/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
@@ -54,7 +61,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000","http://localhost:19006")
+                        .allowedOrigins("http://localhost:3000","http://localhost:19006","http://mobil-bank-production.up.railway.app")
                         .allowedMethods(
                                 HttpMethod.POST.name(),
                                 HttpMethod.PATCH.name(),
