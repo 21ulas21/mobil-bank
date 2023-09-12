@@ -59,7 +59,8 @@ public class SecurityConfig {
                                 "http://mobil-bank-production.up.railway.app",
                                 "http://localhost:8181",
                                 "http://localhost:8081",
-                                "https://cashappadmin.vercel.app")
+                                "https://cashappadmin.vercel.app",
+                                "http://localhost:8082")
                         .allowedMethods(
                                 HttpMethod.POST.name(),
                                 HttpMethod.PATCH.name(),
