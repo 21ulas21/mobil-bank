@@ -40,7 +40,7 @@ public class MoneyTransferController {
         var result = service.getAllMoneyTransfer().stream().map(MoneyTransferResponse::fromDto).toList();
         return ResponseEntity.ok(result);
     }
-    @PutMapping()
+    @PutMapping("/{id}")
     public ResponseEntity<MoneyTransferResponse> canceledMoneyTransfer(@PathVariable(value = "id")String id){
         var result = service.canceledMoneyTransfer(id);
         return ResponseEntity.ok(MoneyTransferResponse.fromDto(result));
