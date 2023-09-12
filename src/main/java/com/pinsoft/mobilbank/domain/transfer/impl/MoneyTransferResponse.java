@@ -2,6 +2,7 @@ package com.pinsoft.mobilbank.domain.transfer.impl;
 
 import com.pinsoft.mobilbank.domain.transfer.api.MoneyTransferDto;
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
+import com.pinsoft.mobilbank.domain.user.api.UserFriendsDto;
 import com.pinsoft.mobilbank.domain.user.impl.User;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +17,8 @@ public class MoneyTransferResponse {
     private final Date createdDate;
     private final Date modified;
     private final Double amount;
-    private final UserDto senderUser;
-    private final UserDto targetUser;
+    private final UserFriendsDto senderUser;
+    private final UserFriendsDto targetUser;
     private final MoneyTransferStatus transferStatus;
 
     public static MoneyTransferResponse fromDto(MoneyTransferDto dto){

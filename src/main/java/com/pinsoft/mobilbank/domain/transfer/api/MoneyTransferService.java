@@ -14,7 +14,7 @@ public interface MoneyTransferService {
     MyMoneyTransferDto getMyMoneyTransfers();
 
     byte[] moneyTrasnfer(MoneyTransferDto dto) throws IOException, WriterException;
-    void canceledMoneyTransfer(String id);
+    MoneyTransferDto canceledMoneyTransfer(String id);
 
     void takeMoneyTransfer(MoneyTransferDto dto);
 }

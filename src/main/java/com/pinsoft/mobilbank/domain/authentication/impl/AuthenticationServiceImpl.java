@@ -48,6 +48,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
+                .amount(0.0)
+                .status(true)
                 .build();
 
     }
