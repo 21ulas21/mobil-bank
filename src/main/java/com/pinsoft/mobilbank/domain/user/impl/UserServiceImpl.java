@@ -105,12 +105,12 @@ public class UserServiceImpl implements UserService {
 
 
     public User toEntity(User user, UserDto dto){
-        user.setId(dto.getId());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword() == null ? user.getPassword() : dto.getPassword());
-        user.setStatus(true);
+        user.setStatus(dto.isStatus());
+        user.setAmount(dto.getAmount());
         return user;
     }
 

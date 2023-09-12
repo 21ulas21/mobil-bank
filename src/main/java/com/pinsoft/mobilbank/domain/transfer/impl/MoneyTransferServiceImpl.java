@@ -8,6 +8,7 @@ import com.pinsoft.mobilbank.domain.transfer.api.MyMoneyTransferDto;
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import com.pinsoft.mobilbank.domain.user.impl.User;
 import com.pinsoft.mobilbank.domain.user.impl.UserServiceImpl;
+import com.pinsoft.mobilbank.library.exception.InsufficientBalance;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -54,14 +55,14 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
             var moneyTransfer =  repository.save(transfer);
             return qrService.generateQrCode(toDto(moneyTransfer));
         }else {
-            throw new UsernameNotFoundException("Yeterli bakye bulunamadı");
+            throw new InsufficientBalance("Insufficient Balance");
         }
 
 
     }
 
     @Override
-    public void canceledMoneyTransfer(String id) {
+    public MoneyTransferDto canceledMoneyTransfer(String id) {
         MoneyTransfer moneyTransfer = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Not Found"));
         Double amount = moneyTransfer.getAmount();
         User targetUser = moneyTransfer.getTargetUser();
@@ -73,6 +74,8 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         }else if (moneyTransfer.getTransferStatus().equals(MoneyTransferStatus.PENDING)){
             moneyTransfer.setTransferStatus(MoneyTransferStatus.REJECTED);
         }
+        return toDto(repository.save(moneyTransfer));
+
 
 
     }
@@ -81,8 +84,8 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     public void takeMoneyTransfer(MoneyTransferDto dto) {
         MoneyTransfer moneyTransfer = repository.findById(dto.getId()).orElseThrow(()-> new EntityNotFoundException("Not Found"));
         Double amount = dto.getAmount();
-        UserDto targetUser = dto.getTargetUser();
-        UserDto senderUser = dto.getSenderUser();
+        UserDto targetUser = userService.getUserById(dto.getTargetUser().getId());
+        UserDto senderUser = userService.getUserById(dto.getSenderUser().getId());
         UserDto currentUser = userService.getAuthenticateUser();
 
         if (currentUser.getId().equals(targetUser.getId())){
@@ -107,8 +110,8 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .modified(moneyTransfer.getModified())
                 .createdDate(moneyTransfer.getCreatedDate())
                 .amount(moneyTransfer.getAmount())
-                .targetUser(userService.toDto(moneyTransfer.getTargetUser()))
-                .senderUser(userService.toDto(moneyTransfer.getSenderUser()))
+                .targetUser(userService.toUserFriendsDto(moneyTransfer.getTargetUser()))
+                .senderUser(userService.toUserFriendsDto(moneyTransfer.getSenderUser()))
                 .build();
 
     }

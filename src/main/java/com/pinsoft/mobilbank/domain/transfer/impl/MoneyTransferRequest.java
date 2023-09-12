@@ -2,6 +2,7 @@ package com.pinsoft.mobilbank.domain.transfer.impl;
 
 import com.pinsoft.mobilbank.domain.transfer.api.MoneyTransferDto;
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
+import com.pinsoft.mobilbank.domain.user.api.UserFriendsDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,8 +18,8 @@ public class MoneyTransferRequest {
       return MoneyTransferDto.builder()
               .id(id)
               .amount(amount)
-              .senderUser(UserDto.builder().id(senderUserId).build())
-              .targetUser(UserDto.builder().id(targetUserId).build())
+              .senderUser(UserFriendsDto.builder().id(senderUserId).build())
+              .targetUser(UserFriendsDto.builder().id(targetUserId).build())
               .build();
     }
 

@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -15,7 +17,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(of = "id")
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,10 +27,12 @@ public abstract class AbstractEntity {
 
     @Column(name = "created_date")
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     @LastModifiedDate
     @Column(name = "modified")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
 
