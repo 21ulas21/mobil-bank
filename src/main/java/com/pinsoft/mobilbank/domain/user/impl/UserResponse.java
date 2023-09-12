@@ -18,7 +18,7 @@ public class UserResponse {
     private final String lastName;
     private final String email;
     private final boolean status;
-    private final List<UserResponse> friends;
+
     private final Double amount;
 
     public static UserResponse toResponse(UserDto dto){
@@ -30,7 +30,6 @@ public class UserResponse {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
-                .friends(dto.getFriends().stream().map(UserResponse::toResponse).toList())
                 .build();
     }
 }

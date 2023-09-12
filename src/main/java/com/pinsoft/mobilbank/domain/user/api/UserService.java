@@ -11,6 +11,7 @@ public interface UserService {
 
     UserDto createUser(UserDto userDto);
     UserDto getUserByEmail(String email);
+    List<UserFriendsDto> getMyFriends();
 
 
 }

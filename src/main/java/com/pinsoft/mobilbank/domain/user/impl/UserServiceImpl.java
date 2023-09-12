@@ -1,6 +1,7 @@
 package com.pinsoft.mobilbank.domain.user.impl;
 
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
+import com.pinsoft.mobilbank.domain.user.api.UserFriendsDto;
 import com.pinsoft.mobilbank.domain.user.api.UserService;
 import com.pinsoft.mobilbank.library.exception.UsernameAlreadyExists;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -93,6 +96,12 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
+    public List<UserFriendsDto> getMyFriends(){
+        User user = getCurrentUser();
+       var userFriends =  user.getFriends().stream().map(this::toUserFriendsDto).toList();
+       return userFriends;
+    }
+
 
 
     public User toEntity(User user, UserDto dto){
@@ -122,5 +131,13 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         return repository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
+    }
+    public UserFriendsDto toUserFriendsDto(User user){
+        return UserFriendsDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
     }
 }
