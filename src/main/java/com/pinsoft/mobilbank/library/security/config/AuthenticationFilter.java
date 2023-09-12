@@ -1,6 +1,6 @@
-package com.pinsoft.mobilbank.domain.authentication.config;
+package com.pinsoft.mobilbank.library.security.config;
 
-import com.pinsoft.mobilbank.domain.authentication.jwt.JwtService;
+import com.pinsoft.mobilbank.library.security.jwt.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

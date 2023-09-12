@@ -1,4 +1,4 @@
-package com.pinsoft.mobilbank.domain.authentication.config;
+package com.pinsoft.mobilbank.library.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

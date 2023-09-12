@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -18,11 +20,26 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.toResponse(result));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable(value = "id") String id,
                                                    @RequestBody UserRequest request){
         var result = service.updateUser(id,request.toDto());
         return ResponseEntity.ok(UserResponse.toResponse(result));
+    }
+    @GetMapping
+    public ResponseEntity<UserResponse> getAuthenticateUser(){
+        var result = UserResponse.toResponse(service.getAuthenticateUser());
+        return ResponseEntity.ok(result);
+    }
+    @PostMapping("/{id}")
+    public ResponseEntity<UserResponse> addFriend(@PathVariable(value = "id") String id){
+        var result = service.addFriend(id);
+        return ResponseEntity.ok(UserResponse.toResponse(result));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> removeFriend(@PathVariable(value = "id") String id){
+        service.removeFriend(id);
+        return ResponseEntity.ok().build();
     }
 
 

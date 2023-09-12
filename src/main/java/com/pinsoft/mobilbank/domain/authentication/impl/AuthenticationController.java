@@ -1,7 +1,6 @@
 package com.pinsoft.mobilbank.domain.authentication.impl;
 
 import com.pinsoft.mobilbank.domain.authentication.api.AuthenticationService;
-import com.pinsoft.mobilbank.domain.user.impl.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +21,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody UserRequest request){
-        service.register(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest request){
+        var user = service.register(request.toDto());
+        return ResponseEntity.ok(UserRegisterResponse.fromDto(user));
     }
 
 }

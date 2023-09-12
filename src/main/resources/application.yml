@@ -4,9 +4,9 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: jdbc:postgresql://timeoff-management.cl7uvv8utzfs.eu-north-1.rds.amazonaws.com:5432/TimeOffManagement # url: jdbc:postgresql://postgres:5432/time-off-tracker
+    url: jdbc:postgresql://localhost:5432/pinsoft-mobil-bank # url: jdbc:postgresql://postgres:5432/time-off-tracker
     username: postgres
-    password: ticketbooking123 # postgres
+    password: 123456 # postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

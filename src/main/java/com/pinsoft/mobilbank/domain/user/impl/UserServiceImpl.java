@@ -2,8 +2,12 @@ package com.pinsoft.mobilbank.domain.user.impl;
 
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import com.pinsoft.mobilbank.domain.user.api.UserService;
+import com.pinsoft.mobilbank.library.exception.UsernameAlreadyExists;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,9 +17,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
+    @Override
+    public UserDto createUser(UserDto userDto){
+        var user = toEntity(new User(),userDto);
+        if (repository.findByEmail(user.getEmail()).isEmpty()){
+           return toDto(repository.save(user));
+        }else {
+            throw new UsernameAlreadyExists("Username Already Exists");
+        }
 
-    public UserDto createUser(User user){
-        return toDto(repository.save(user));
     }
     @Override
     public UserDto getUserById(String id) {
@@ -37,17 +47,66 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @Override
+    public UserDto getAuthenticateUser() {
+        User user = getCurrentUser();
+        return toDto(user);
+    }
+
+
+    @Override
+    public UserDto addFriend(String id) {
+        User user = repository.findById(id).orElseThrow(()->new UsernameNotFoundException("User Not Found"));
+        User currentUser = getCurrentUser();
+        if (!currentUser.getFriends().contains(user)) {
+            currentUser.getFriends().add(user);
+            repository.save(currentUser);
+
+            // İlgili kullanıcının arkadaş listesine de ekleyin
+            if (!user.getFriends().contains(currentUser)) {
+                user.getFriends().add(currentUser);
+                repository.save(user);
+            }
+        }
+        return toDto(currentUser);
+    }
+
+    @Override
+    public void removeFriend(String id) {
+
+        User user = repository.findById(id).orElseThrow(()->new UsernameNotFoundException("User Not Found"));
+        User currentUser = getCurrentUser();
+        currentUser.getFriends().remove(user);
+    }
+    public User getUserEntityById(String id){
+        return repository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
+    }
+    public void decAmount(String userId, Double amount){
+        User user = repository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
+        user.setAmount(user.getAmount()-amount);
+        repository.save(user);
+    }
+
+    public void incAmount(String userId, Double amount){
+        User user = repository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
+        user.setAmount(user.getAmount()+amount);
+        repository.save(user);
+    }
+
+
+
     public User toEntity(User user, UserDto dto){
         user.setId(dto.getId());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
+        user.setPassword(dto.getPassword() == null ? user.getPassword() : dto.getPassword());
         user.setStatus(true);
         return user;
     }
 
     public UserDto toDto(User user){
+
         return UserDto.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
@@ -55,6 +114,13 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .status(user.isStatus())
+                .amount(user.getAmount())
                 .build();
+    }
+
+    public User getCurrentUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return repository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
     }
 }
