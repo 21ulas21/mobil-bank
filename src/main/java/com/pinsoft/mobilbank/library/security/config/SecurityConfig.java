@@ -54,7 +54,12 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000","http://localhost:19006","http://mobil-bank-production.up.railway.app","http://localhost:8181","https://cashappadmin.vercel.app")
+                        .allowedOrigins("http://localhost:3000",
+                                "http://localhost:19006",
+                                "http://mobil-bank-production.up.railway.app",
+                                "http://localhost:8181",
+                                "http://localhost:8081",
+                                "https://cashappadmin.vercel.app")
                         .allowedMethods(
                                 HttpMethod.POST.name(),
                                 HttpMethod.PATCH.name(),

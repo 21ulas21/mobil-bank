@@ -11,7 +11,6 @@ public class UserRegisterResponse {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
 
     public static UserRegisterResponse fromDto(UserDto dto){
         return UserRegisterResponse.builder()
