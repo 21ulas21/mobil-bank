@@ -11,7 +11,7 @@ public class UserRequest {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
+
 
 
     public UserDto toDto(){
@@ -19,7 +19,6 @@ public class UserRequest {
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
-                .password(password)
                 .build();
     }
 

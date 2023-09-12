@@ -1,7 +1,6 @@
-package com.pinsoft.mobilbank.domain.authentication.config;
+package com.pinsoft.mobilbank.library.security.config;
 
 import com.pinsoft.mobilbank.domain.user.impl.UserRepository;
-import com.pinsoft.mobilbank.domain.user.impl.UserServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

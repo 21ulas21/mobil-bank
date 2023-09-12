@@ -1,6 +1,5 @@
-package com.pinsoft.mobilbank.domain.authentication.config;
+package com.pinsoft.mobilbank.library.security.config;
 
-import io.swagger.v3.oas.models.PathItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -61,7 +54,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000","http://localhost:19006","http://mobil-bank-production.up.railway.app")
+                        .allowedOrigins("http://localhost:3000","http://localhost:19006","http://mobil-bank-production.up.railway.app","http://localhost:8181","https://cashappadmin.vercel.app")
                         .allowedMethods(
                                 HttpMethod.POST.name(),
                                 HttpMethod.PATCH.name(),

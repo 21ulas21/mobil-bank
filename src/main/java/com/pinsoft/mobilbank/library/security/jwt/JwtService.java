@@ -1,4 +1,4 @@
-package com.pinsoft.mobilbank.domain.authentication.jwt;
+package com.pinsoft.mobilbank.library.security.jwt;
 
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import io.jsonwebtoken.Claims;

@@ -1,4 +1,4 @@
-package com.pinsoft.mobilbank.domain.authentication.config;
+package com.pinsoft.mobilbank.library.security.config;
 
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import com.pinsoft.mobilbank.domain.user.impl.User;
