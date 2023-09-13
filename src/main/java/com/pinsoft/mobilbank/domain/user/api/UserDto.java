@@ -1,5 +1,6 @@
 package com.pinsoft.mobilbank.domain.user.api;
 
+import com.pinsoft.mobilbank.domain.user.impl.UserRole;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,8 +18,9 @@ public class UserDto {
     private final String lastName;
     private final String email;
     private final String password;
-    private final boolean status;
+    private final Boolean status;
     private final List<UserDto> friends;
     private final Double amount;
+    private final UserRole role;
 
 }

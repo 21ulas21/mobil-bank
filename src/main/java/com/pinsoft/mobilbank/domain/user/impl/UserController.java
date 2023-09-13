@@ -1,5 +1,6 @@
 package com.pinsoft.mobilbank.domain.user.impl;
 
+import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import com.pinsoft.mobilbank.domain.user.api.UserFriendsDto;
 import com.pinsoft.mobilbank.domain.user.api.UserService;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class UserController {
         return ResponseEntity.ok(UserResponse.toResponse(result));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable(value = "id") String id,
                                                    @RequestBody UserRequest request){
         var result = service.updateUser(id,request.toDto());
@@ -32,12 +33,12 @@ public class UserController {
         var result = UserResponse.toResponse(service.getAuthenticateUser());
         return ResponseEntity.ok(result);
     }
-    @PostMapping("/{id}")
+    @PostMapping("/add-friends/{id}")
     public ResponseEntity<UserResponse> addFriend(@PathVariable(value = "id") String id){
         var result = service.addFriend(id);
         return ResponseEntity.ok(UserResponse.toResponse(result));
     }
-    @PutMapping("/{id}")
+    @PostMapping("/remove-friends/{id}")
     public ResponseEntity<UserResponse> removeFriend(@PathVariable(value = "id") String id){
         service.removeFriend(id);
         return ResponseEntity.ok().build();
@@ -46,6 +47,12 @@ public class UserController {
     public ResponseEntity<List<UserFriendsDto>> getMyFriends(){
         var result = service.getMyFriends();
         return ResponseEntity.ok(result);
+    }
+    @PutMapping("/add-money/{id}")
+    public ResponseEntity<UserResponse> addMoney(@PathVariable(value = "id") String id,
+                                                 @RequestParam Double money){
+        var result = service.addMoney(id,money);
+        return ResponseEntity.ok(UserResponse.toResponse(result));
     }
 
 

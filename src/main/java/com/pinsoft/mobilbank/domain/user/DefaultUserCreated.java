@@ -2,6 +2,7 @@ package com.pinsoft.mobilbank.domain.user;
 
 import com.pinsoft.mobilbank.domain.user.impl.User;
 import com.pinsoft.mobilbank.domain.user.impl.UserRepository;
+import com.pinsoft.mobilbank.domain.user.impl.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -15,7 +16,7 @@ public class DefaultUserCreated {
     private final UserRepository repository;
     private final BCryptPasswordEncoder encoder;
     private final String email = "admin";
-    private final String password = "password";
+    private final String password = "admin";
 
     @EventListener
     public void onApplicationStartUp(ApplicationReadyEvent readyEvent){
@@ -24,6 +25,7 @@ public class DefaultUserCreated {
             User user = new User();
             user.setEmail(email);
             user.setPassword(encoder.encode(password));
+            user.setRole(UserRole.ADMIN);
             repository.save(user);
         }
     }

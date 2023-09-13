@@ -102,6 +102,12 @@ public class UserServiceImpl implements UserService {
        return userFriends;
     }
 
+    @Override
+    public UserDto addMoney(String id, Double money) {
+        User user = repository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
+        user.setAmount(user.getAmount() + money);
+        return toDto(repository.save(user));
+    }
 
 
     public User toEntity(User user, UserDto dto){
@@ -109,8 +115,9 @@ public class UserServiceImpl implements UserService {
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword() == null ? user.getPassword() : dto.getPassword());
-        user.setStatus(dto.isStatus());
+        user.setStatus(dto.getStatus());
         user.setAmount(dto.getAmount());
+        user.setRole(dto.getRole());
         return user;
     }
 
@@ -122,8 +129,9 @@ public class UserServiceImpl implements UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .status(user.isStatus())
+                .status(user.getStatus())
                 .amount(user.getAmount())
+                .role(user.getRole())
                 .build();
     }
 
