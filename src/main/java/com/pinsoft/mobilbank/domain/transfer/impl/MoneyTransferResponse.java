@@ -20,6 +20,8 @@ public class MoneyTransferResponse {
     private final UserFriendsDto senderUser;
     private final UserFriendsDto targetUser;
     private final MoneyTransferStatus transferStatus;
+    private final Double senderLastAmount;
+    private final Double targetLastAmount;
 
     public static MoneyTransferResponse fromDto(MoneyTransferDto dto){
       return MoneyTransferResponse.builder()

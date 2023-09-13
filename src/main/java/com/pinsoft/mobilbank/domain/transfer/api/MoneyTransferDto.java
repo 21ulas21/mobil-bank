@@ -19,6 +19,8 @@ public class MoneyTransferDto {
     private final UserFriendsDto senderUser;
     private final UserFriendsDto targetUser;
     private final MoneyTransferStatus transferStatus;
+    private final Double senderLastAmount;
+    private final Double targetLastAmount;
 
 
 

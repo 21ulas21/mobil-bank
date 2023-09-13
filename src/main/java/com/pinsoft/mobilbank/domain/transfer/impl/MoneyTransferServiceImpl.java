@@ -90,11 +90,15 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         UserDto targetUser = userService.getUserById(dto.getTargetUser().getId());
         UserDto senderUser = userService.getUserById(dto.getSenderUser().getId());
         UserDto currentUser = userService.getAuthenticateUser();
-
+        if (moneyTransfer.getTransferStatus() == MoneyTransferStatus.REJECTED || moneyTransfer.getTransferStatus() == MoneyTransferStatus.APPROVED){
+            throw new IllegalStateException("The transaction has already been carried out");
+        }
         if (currentUser.getId().equals(targetUser.getId())){
-            userService.decAmount(senderUser.getId(), amount);
-            userService.incAmount(targetUser.getId(), amount);
+           var senderAmount = userService.decAmount(senderUser.getId(), amount);
+           var targetAmount =  userService.incAmount(targetUser.getId(), amount);
             moneyTransfer.setTransferStatus(MoneyTransferStatus.APPROVED);
+            moneyTransfer.setTargetLastAmount(targetAmount);
+            moneyTransfer.setSenderLastAmount(senderAmount);
             repository.save(moneyTransfer);
         }else {
             throw new IllegalStateException("You can only perform actions created just for you");
@@ -105,6 +109,8 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         moneyTransfer.setAmount(dto.getAmount());
         moneyTransfer.setSenderUser(userService.getUserEntityById(dto.getSenderUser().getId()));
         moneyTransfer.setTargetUser(userService.getUserEntityById(dto.getTargetUser().getId()));
+        moneyTransfer.setSenderLastAmount(dto.getSenderLastAmount() == null ? null : dto.getSenderLastAmount());
+        moneyTransfer.setTargetLastAmount(dto.getTargetLastAmount() == null ? null : dto.getTargetLastAmount());
         return moneyTransfer;
     }
     private MoneyTransferDto toDto(MoneyTransfer moneyTransfer){
@@ -115,6 +121,8 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .amount(moneyTransfer.getAmount())
                 .targetUser(userService.toUserFriendsDto(moneyTransfer.getTargetUser()))
                 .senderUser(userService.toUserFriendsDto(moneyTransfer.getSenderUser()))
+                .senderLastAmount(moneyTransfer.getSenderLastAmount() == null ? null : moneyTransfer.getSenderLastAmount())
+                .targetLastAmount(moneyTransfer.getTargetLastAmount() == null ? null : moneyTransfer.getTargetLastAmount())
                 .build();
 
     }

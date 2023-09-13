@@ -84,16 +84,18 @@ public class UserServiceImpl implements UserService {
     public User getUserEntityById(String id){
         return repository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
     }
-    public void decAmount(String userId, Double amount){
+    public Double decAmount(String userId, Double amount){
         User user = repository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
         user.setAmount(user.getAmount()-amount);
         repository.save(user);
+        return user.getAmount();
     }
 
-    public void incAmount(String userId, Double amount){
+    public Double incAmount(String userId, Double amount){
         User user = repository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
         user.setAmount(user.getAmount()+amount);
         repository.save(user);
+        return user.getAmount();
     }
 
     public List<UserFriendsDto> getMyFriends(){

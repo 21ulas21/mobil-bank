@@ -25,6 +25,8 @@ public class MoneyTransfer extends AbstractEntity {
     private User targetUser;
     @Enumerated(EnumType.STRING)
     private MoneyTransferStatus transferStatus;
+    private Double senderLastAmount;
+    private Double targetLastAmount;
 
 
 
