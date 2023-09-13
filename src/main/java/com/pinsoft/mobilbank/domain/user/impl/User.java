@@ -23,6 +23,8 @@ public class User extends AbstractEntity {
     private static final String COL_EMAIL="email";
     private static final String COL_PASSWORD="password";
     private static final String COL_STATUS="status";
+    private static final String COL_ROLE="role";
+    private static final String COL_AMOUNT="amount";
 
     @Column(name = COL_FIRSTS_NAME)
     private String firstName;
@@ -33,8 +35,12 @@ public class User extends AbstractEntity {
     @Column(name = COL_PASSWORD,nullable = false)
     private String password;
     @Column(name = COL_STATUS)
-    private boolean status;
+    private Boolean status;
+    @Column(name = COL_AMOUNT)
     private Double amount;
+    @Column(name = COL_ROLE)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
     @ManyToMany
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "usr_id"),

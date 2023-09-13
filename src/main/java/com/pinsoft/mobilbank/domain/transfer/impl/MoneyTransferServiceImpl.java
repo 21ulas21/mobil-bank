@@ -49,6 +49,9 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         User targetUser = transfer.getTargetUser();
         User senderUser = transfer.getSenderUser();
         boolean status = senderUser.getFriends().contains(targetUser);
+        if (!senderUser.getFriends().contains(targetUser)){
+            throw new IllegalStateException("You can only send money to your friends");
+        }
         if (transfer.getSenderUser().getAmount()>=dto.getAmount() && status){
 
             transfer.setTransferStatus(MoneyTransferStatus.PENDING);

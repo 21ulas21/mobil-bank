@@ -3,6 +3,7 @@ package com.pinsoft.mobilbank.domain.authentication.impl;
 import com.pinsoft.mobilbank.domain.authentication.api.AuthenticationService;
 import com.pinsoft.mobilbank.domain.authentication.api.UserRegisterDto;
 import com.pinsoft.mobilbank.domain.user.api.UserService;
+import com.pinsoft.mobilbank.domain.user.impl.UserRole;
 import com.pinsoft.mobilbank.library.security.jwt.JwtService;
 import com.pinsoft.mobilbank.domain.user.api.UserDto;
 import com.pinsoft.mobilbank.domain.user.impl.UserServiceImpl;
@@ -31,7 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var token = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
-                .status(user.isStatus())
+                .status(user.getStatus())
                 .token(token)
                 .build();
     }
@@ -50,6 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .amount(0.0)
                 .status(true)
+                .role(UserRole.USER)
                 .build();
 
     }
