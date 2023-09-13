@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
             currentUser.getFriends().add(user);
             repository.save(currentUser);
 
-            // İlgili kullanıcının arkadaş listesine de ekleyin
             if (!user.getFriends().contains(currentUser)) {
                 user.getFriends().add(currentUser);
                 repository.save(user);
@@ -127,6 +126,8 @@ public class UserServiceImpl implements UserService {
 
         return UserDto.builder()
                 .id(user.getId())
+                .createdDate(user.getCreatedDate())
+                .modified(user.getModified())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
