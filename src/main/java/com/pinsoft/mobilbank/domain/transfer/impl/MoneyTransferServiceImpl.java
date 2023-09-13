@@ -1,7 +1,7 @@
 package com.pinsoft.mobilbank.domain.transfer.impl;
 
 import com.google.zxing.WriterException;
-import com.pinsoft.mobilbank.domain.account.QrService;
+import com.pinsoft.mobilbank.domain.qrcode.QrService;
 import com.pinsoft.mobilbank.domain.transfer.api.MoneyTransferDto;
 import com.pinsoft.mobilbank.domain.transfer.api.MoneyTransferService;
 import com.pinsoft.mobilbank.domain.transfer.api.MyMoneyTransferDto;
@@ -11,7 +11,6 @@ import com.pinsoft.mobilbank.domain.user.impl.UserServiceImpl;
 import com.pinsoft.mobilbank.library.exception.InsufficientBalance;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

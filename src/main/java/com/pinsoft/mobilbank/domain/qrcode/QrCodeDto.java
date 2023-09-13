@@ -1,4 +1,4 @@
-package com.pinsoft.mobilbank.domain.account;
+package com.pinsoft.mobilbank.domain.qrcode;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,5 @@
-package com.pinsoft.mobilbank.domain.account;
+package com.pinsoft.mobilbank.domain.qrcode;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -15,14 +14,9 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+
 @Service
 public class QrService {
-
-    public void generateQr(String data, OutputStream outputStream) throws WriterException, IOException {
-        BitMatrix bitMatrix = new QRCodeWriter().encode(data, BarcodeFormat.QR_CODE, 200, 200);
-        MatrixToImageWriter.writeToStream(bitMatrix, "jpeg", outputStream );
-    }
 
     public String decodeQr(byte[] data) throws IOException, NotFoundException {
         Result result = new MultiFormatReader()
