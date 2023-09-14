@@ -32,7 +32,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
     @Override
     public List<MoneyTransferDto> getAllMoneyTransfer() {
-        return repository.findAll().stream().map(this::toDto).toList();
+        return repository.findPendingAndApprovedTransfers().stream().map(this::toDto).toList();
     }
 
     @Override
