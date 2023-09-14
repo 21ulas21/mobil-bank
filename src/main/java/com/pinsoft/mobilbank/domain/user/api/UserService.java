@@ -13,4 +13,5 @@ public interface UserService {
     UserDto getUserByEmail(String email);
     List<UserFriendsDto> getMyFriends();
     UserDto addMoney(String id, Double money);
+    List<UserFriendsDto> getAllUser();
 }

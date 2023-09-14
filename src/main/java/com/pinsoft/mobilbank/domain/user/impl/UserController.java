@@ -54,6 +54,11 @@ public class UserController {
         var result = service.addMoney(id,money);
         return ResponseEntity.ok(UserResponse.toResponse(result));
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<UserFriendsDto>> getAllUser(){
+        var result = service.getAllUser();
+        return ResponseEntity.ok(result);
+    }
 
 
 

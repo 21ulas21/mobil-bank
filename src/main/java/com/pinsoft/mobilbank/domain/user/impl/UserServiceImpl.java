@@ -110,6 +110,12 @@ public class UserServiceImpl implements UserService {
         return toDto(repository.save(user));
     }
 
+    @Override
+    public List<UserFriendsDto> getAllUser() {
+        List<UserFriendsDto> users = repository.findAll().stream().map(this::toUserFriendsDto).toList();
+        return users;
+    }
+
 
     public User toEntity(User user, UserDto dto){
         user.setFirstName(dto.getFirstName());
@@ -149,6 +155,7 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
+                .amount(user.getAmount())
                 .build();
     }
 }
