@@ -5,6 +5,7 @@ import com.pinsoft.mobilbank.domain.user.api.UserFriendsDto;
 import com.pinsoft.mobilbank.domain.user.api.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
     @PutMapping("/add-money/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<UserResponse> addMoney(@PathVariable(value = "id") String id,
                                                  @RequestParam Double money){
         var result = service.addMoney(id,money);

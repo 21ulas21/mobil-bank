@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,11 +37,13 @@ public class MoneyTransferController {
         return ResponseEntity.ok(result);
     }
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<MoneyTransferResponse>> getAllMoneyTransfer(){
         var result = service.getAllMoneyTransfer().stream().map(MoneyTransferResponse::fromDto).toList();
         return ResponseEntity.ok(result);
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<MoneyTransferResponse> canceledMoneyTransfer(@PathVariable(value = "id")String id){
         var result = service.canceledMoneyTransfer(id);
         return ResponseEntity.ok(MoneyTransferResponse.fromDto(result));
