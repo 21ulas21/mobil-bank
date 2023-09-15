@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class DefaultUserCreated {
 
     private final UserRepository repository;
-    private final BCryptPasswordEncoder encoder;
+    private final BCryptPasswordEncoder passwordEncoder;
     private final String email = "admin";
     private final String password = "admin";
 
@@ -24,7 +24,7 @@ public class DefaultUserCreated {
         if (repository.findByEmail(email).isEmpty()){
             User user = new User();
             user.setEmail(email);
-            user.setPassword(encoder.encode(password));
+            user.setPassword(passwordEncoder.encode(password));
             user.setRole(UserRole.ADMIN);
             repository.save(user);
         }
